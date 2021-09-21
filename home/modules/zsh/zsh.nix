@@ -8,6 +8,8 @@ let
     sha256 = "09bkg1a7qs6kvnq17jnw5cbcjhz9sk259mv0d5mklqaifd0hms4v";
   };
 
+  home = config.home.homeDirectory;
+
   powerlevel10k = pkgs.fetchFromGitHub {
     owner = "romkatv";
     repo = "powerlevel10k";
@@ -46,7 +48,7 @@ in
 
     initExtraBeforeCompInit = ''
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      source ~/.p10k.zsh 
+      source ${home}/.p10k.zsh 
     '';
   };
 }

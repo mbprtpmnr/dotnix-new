@@ -44,7 +44,6 @@
     fup.lib.mkFlake {
       inherit self inputs;
   
-      # Define channels from inputs
       channels.nixpkgs = {
         input = unstable;
         config = {
@@ -59,7 +58,6 @@
         };
       };
   
-      # Host defaults modules
       hostDefaults.modules = [
         inputs.agenix.nixosModules.age
         inputs.home-manager.nixosModule {
@@ -71,7 +69,6 @@
         inputs.sops-nix.nixosModules.sops
       ];
   
-      # Overlays builder from channels
       channels.nixpkgs.overlaysBuilder = channels: [
         (final: prev: { inherit (channels) stable; })
         self.overlay
@@ -79,7 +76,6 @@
         inputs.fup.overlay
       ];
   
-      # NixOS systems configurations
       hosts = {
         nixos = {
           modules = [
@@ -88,7 +84,6 @@
         };
       };
       
-      # Home-Manager users configurations
       homeConfigurations = let
         username = "mbprtpmnr";
         homeDirectory = "/home/${username}";
@@ -110,21 +105,17 @@
         };
       };
   
-      # System build
       nixos = inputs.self.nixosConfigurations.nixos.config.system.build.toplevel;
       
-      # Overlays
       sharedOverlays = [
         self.overlay
       ];
 
-      # Importing overlays
       overlay = import ./system/overlays/packages.nix;
       overlays = fup.lib.exportOverlays {
         inherit (self) pkgs inputs;
       };
 
-      # devShell
       outputsBuilder = channels: {
         packages = fup.lib.exportPackages self.overlays channels;
         devShell = channels.nixpkgs.devshell.mkShell {

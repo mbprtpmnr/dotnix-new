@@ -28,6 +28,7 @@
   swapDevices = [ ];
 
   boot.cleanTmpDir = true;
+  boot.tmpOnTmpfs = true;
 
   services.journald.extraConfig = "Storage=volatile";
 

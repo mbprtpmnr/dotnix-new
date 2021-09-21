@@ -9,6 +9,7 @@
     ./modules/programs.nix
     ./modules/zsh/zsh.nix
     ./modules/media.nix
+    ./modules/emacs.nix
     ./modules/files.nix
     ./modules/bash.nix
     ./modules/gtk.nix

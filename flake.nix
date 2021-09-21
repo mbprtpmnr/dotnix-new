@@ -5,6 +5,11 @@
     stable.url = "github:NixOS/nixpkgs?ref=nixos-21.05";
     unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
     master.url = "github:NixOS/nixpkgs?ref=master";
+    nix-doom-emacs = {
+      url = "github:vlaci/nix-doom-emacs";
+      inputs.nixpkgs.follows = "unstable";
+      inputs.flake-utils.follows = "fu";
+    };
     nix = {
       url = "github:NixOS/nix";
       inputs.nixpkgs.follows = "unstable";
@@ -35,7 +40,7 @@
     };
   };
 
-  outputs = { self, stable, unstable, master, agenix, home-manager, fu, fup, ... }@inputs:
+  outputs = { self, stable, nix-doom-emacs, unstable, master, agenix, home-manager, fu, fup, ... }@inputs:
     fup.lib.mkFlake {
       inherit self inputs;
   
@@ -99,7 +104,7 @@
         "mbprtpmnr@nixos" = generateHome {
           inherit system username homeDirectory pkgs stateVersion extraSpecialArgs;
           configuration = {
-            imports = [ ./home/home.nix ];
+            imports = [ nix-doom-emacs.hmModule ./home/home.nix ];
             inherit nixpkgs;
           };
         };

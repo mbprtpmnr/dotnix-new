@@ -24,6 +24,10 @@ in
     enableAutosuggestions = true;
     autocd = true;
     enableCompletion = true;
+    history = {
+      expireDuplicatesFirst = true;
+      path = "${home}/.zsh_history";
+    };
     shellAliases = {
       ls = "exa --color=always -l --group-directories-first";
       ll = "exa --color=always -al --group-directories-first";

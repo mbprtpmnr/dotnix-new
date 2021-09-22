@@ -12,7 +12,6 @@
     thunderbird
     exa
     fup-repl
-    vscode-with-extensions
     kotatogram-desktop
     meld
     gimp
